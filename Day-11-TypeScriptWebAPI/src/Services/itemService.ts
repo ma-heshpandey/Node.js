@@ -37,48 +37,48 @@ export const deletePost = async(id:number)=>{
 
 //recommended way
 
-// export const updatePost = async (id: number, upatedObject: Items)=>{
-//     console.log(id, upatedObject)
-//     const item: Array<Items> = await mockItems.filter((element)=>element.id == id)
-//     console.log(item)
-//     if(item[0]){
-//         const indexObtained: number = mockItems.indexOf(item[0])
-//         console.log("Inside if")
-//         mockItems[indexObtained]= upatedObject
-//         return upatedObject
-//     }
-//     return Promise.reject("Not Found")   // catch block catches the error Not found
-// }
+export const updatePost = async (id: number, upatedObject: Items)=>{
+    
+    const item: Array<Items> = await mockItems.filter((element)=>element.id == id)
+  
+    if(item[0]){
+        const indexObtained: number = mockItems.indexOf(item[0])
+        
+        mockItems[indexObtained]= upatedObject
+        return upatedObject
+    }
+    return Promise.reject("Not Found")   // catch block catches the error Not found
+}
 
 
 //updatePost using Promise, not very recommended way
 
 
 
-export const updatePost = async (id: number, upatedObject: Items)=>{
-    console.log(id, upatedObject)
-    const itemPromise = new Promise((resolve, reject)=>{
-        const item: Array<Items> =  mockItems.filter((element)=>element.id == id)
+// export const updatePost = async (id: number, upatedObject: Items)=>{
+//     console.log(id, upatedObject)
+//     const itemPromise = new Promise((resolve, reject)=>{
+//         const item: Array<Items> =  mockItems.filter((element)=>element.id == id)
         
-        if(item[0]){
-            const indexObtained: number = mockItems.indexOf(item[0])
-            console.log("Inside if")
-            mockItems[indexObtained]= upatedObject
-            // return upatedObject
-            resolve(upatedObject)
+//         if(item[0]){
+//             const indexObtained: number = mockItems.indexOf(item[0])
+            
+//             mockItems[indexObtained]= upatedObject
+//             // return upatedObject
+//             resolve(upatedObject)
 
-        }
-        reject("Not Found")
+//         }
+//         reject("Not Found")
         
-    })
+//     })
 
-    const value = await itemPromise.then((arrayObtained)=>{
-        console.log("promise Resolved", arrayObtained)
-        return arrayObtained
-    }).catch((message)=>{
-        return message
-    })
+//     const value = await itemPromise.then((arrayObtained)=>{
+//         console.log("promise Resolved", arrayObtained)
+//         return arrayObtained
+//     }).catch((message)=>{
+//         return message
+//     })
    
-    return value
+//     return value
 
-}
+// }
