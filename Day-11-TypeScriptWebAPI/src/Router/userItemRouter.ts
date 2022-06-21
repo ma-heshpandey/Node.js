@@ -31,7 +31,7 @@ itemsRouter.post("/",async (req:Request, res: Response)=>{
         res.status(200).json(obtainPostData)
     }
     catch(error){
-     res.status(404).json({"message":"Sorry, requested data not availabe", "error":`${error}`})
+     res.status(404).json({"message":"Sorry, requested data not posted", "error":`${error}`})
     }
 
     //res.json(obtainPostData)
@@ -45,7 +45,7 @@ itemsRouter.delete('/:id',async (req: Request, res: Response)=>{
     res.status(200).json(newArray)    
     }
     catch(error){
-        res.status(404).json({"message":"Sorry, requested data not availabe", "error":`${error}`})
+        res.status(404).json({"message":"Sorry, requested data cannot be deleted", "error":`${error}`})
        }
 })
 
@@ -58,7 +58,7 @@ itemsRouter.put('/:id', async (req:Request, res: Response)=>{
         res.status(200).json(updatedArray)
     }
     catch(error){
-        res.status(404).json({"message":"Sorry, requested data not availabe", "error":`${error}`})
+        res.status(404).json({"message":"Sorry, requested data cannot be update", "error":`${error}`})
     }
 
 })
