@@ -8,9 +8,15 @@ export const findAll = async()=>{
 }
 
 
-// export const findById = async(id)=>{
+export const findById = async(id)=>{
 
-// }
+    const book = await AppDataSource.manager.findOneBy(Book, {id : id})
+    if(book){
+        return book
+    }
+    
+    return null
+}
 
 
 export const PostBook = async(data)=>{

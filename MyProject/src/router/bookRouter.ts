@@ -1,6 +1,6 @@
 import {Router, Request, Response} from "express"
 
-import { findAll, PostBook } from "../services/bookService"
+import { findAll, PostBook, findById } from "../services/bookService"
 import { BookContract } from "../contracts/book"
 import { prependOnceListener } from "process"
 
@@ -25,8 +25,12 @@ bookRouter.get("/:id", async (req: Request, res:Response)=>{
 
     try {
         const id = req.params.id
-        const result = await findById()
-        res.send(result).status(200)
+        const result = await findById(id)
+        if(result){
+            res.send(result).status(200)
+        }
+        res.status(404).send("Sorry,Data not found ")
+
     }
     catch(error){
         const result = "Sorry, Not found"+error
