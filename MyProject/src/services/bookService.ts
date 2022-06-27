@@ -19,7 +19,7 @@ export const findById = async(id)=>{
 }
 
 
-export const PostBook = async(data)=>{
+export const postBook = async(data)=>{
     const book = new Book()
     book.name = data.name
     book.date = data.date
@@ -27,12 +27,25 @@ export const PostBook = async(data)=>{
     return result
 }
 
-export const PutBook = async(id, data)=>{
+export const putBook = async(id, data)=>{
     const obtainBook = await AppDataSource.manager.findOneBy(Book, {id : id})
     if(obtainBook){
         const book = await  AppDataSource.manager.update(Book, 1, data)
         const updatedBook= await AppDataSource.manager.findOneBy(Book, {id : id})
         return updatedBook
+    }
+    else {
+        return null
+    }
+    
+}
+
+
+export const deleteBook = async(id)=>{
+    const obtainBook = await AppDataSource.manager.findOneBy(Book, {id : id})
+    if(obtainBook){
+        const book = await  AppDataSource.manager.delete(Book, 1)
+        return obtainBook
     }
     else {
         return null
