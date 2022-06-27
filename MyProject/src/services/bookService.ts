@@ -43,8 +43,10 @@ export const putBook = async(id, data)=>{
 
 export const deleteBook = async(id)=>{
     const obtainBook = await AppDataSource.manager.findOneBy(Book, {id : id})
+    console.log('jijjij')
     if(obtainBook){
-        const book = await  AppDataSource.manager.delete(Book, 1)
+        const book = await  AppDataSource.manager.delete(Book, id)
+        console.log(book)
         return obtainBook
     }
     else {
