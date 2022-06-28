@@ -24,10 +24,10 @@ export const findById = async(id)=>{
 
 
 export const postBook = async(data)=>{
-    const book = new Book()
-    book.name = data.name
-    book.date = data.date
-    const result = await bookRepository.insert(book)
+    // const book = new Book()
+    // book.name = data.name
+    // book.date = data.date
+    const result = await bookRepository.insert(data)
     return result
 }
 
@@ -49,7 +49,9 @@ export const putBook = async(id, data)=>{
 export const deleteBook = async(id)=>{
     const obtainBook = await AppDataSource.manager.findOneBy(Book, {id : id})
     if(obtainBook){
-        const book = await  AppDataSource.manager.delete(Book, id)
+        //const book = await  AppDataSource.manager.delete(Book, id)
+        const book = await  bookRepository.remove(obtainBook)
+
         return obtainBook
     }
     else {
