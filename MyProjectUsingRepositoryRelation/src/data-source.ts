@@ -3,6 +3,8 @@ import { DataSource, Migration } from "typeorm"
 import { User } from "./entity/User"
 import {Book} from "./entity/Book"
 import { Citizenship } from "./entity/Citizenship"
+import { Table } from "./entity/Table"
+
 
 
 export const AppDataSource = new DataSource({
@@ -14,7 +16,7 @@ export const AppDataSource = new DataSource({
     database: "RelationDatabaase",
     synchronize: true,
     logging: false,
-    entities: [User, Book, Citizenship],
+    entities: [User, Book, Citizenship, Table],
     migrations: [],
     subscribers: [],
 })

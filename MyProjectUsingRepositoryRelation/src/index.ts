@@ -2,6 +2,8 @@ import express  from 'express'
 import { AppDataSource } from "./data-source"
 import { bookRouter } from './router/bookRouter'
 import { citizenshipRout } from './router/citizenshipRouter'
+import { tableroute } from './router/tableRouter'
+
 
 const bodyParser = require("body-parser")
 
@@ -13,6 +15,7 @@ app.use(bodyParser.json())
 
 app.use('/book', bookRouter)
 app.use('/citizenship', citizenshipRout)
+app.use('/table',tableroute)
 
 app.listen(Port,()=>{
     console.log("Express is connected.")
