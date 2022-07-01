@@ -20,7 +20,7 @@ export const findAll = async()=>{
 
 export const findById = async(id)=>{
 
-    const book = await citizenshipRepository.findBy({id : id})
+    const book = await citizenshipRepository.findOneBy({id : id})
     if(book){
         return book
     }

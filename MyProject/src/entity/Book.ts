@@ -12,7 +12,4 @@ export class Book{
     @Column()
     date: Date
 
-
-
-
 }

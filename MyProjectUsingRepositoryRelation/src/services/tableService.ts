@@ -3,6 +3,7 @@ import { AppDataSource } from "../data-source"
 import {Book} from "../entity/Book"
 import {User} from "../entity/User"
 import { Table } from "../entity/Table"
+import { type } from "os"
 
 
 const bookRepository =AppDataSource.getRepository(Book)
@@ -20,8 +21,10 @@ export const findAll = async()=>{
 
 export const findById = async(id)=>{
 
-    const table = await TableRepository.findBy({id : id})
+    const table = await TableRepository.findOneBy({id : id})
+    console.log(typeof(table))
     if(table){
+        
         return table
     }
     else{
@@ -32,8 +35,14 @@ export const findById = async(id)=>{
 
 export const postTable = async(data)=>{
     const obtainUser = await userRepository.findOneBy({id : data.user})
-    const result = await TableRepository.save({...data,"user":[obtainUser]})
-    return result
+    if (obtainUser){
+        const result = await TableRepository.save({...data,"user":[obtainUser]})
+        return result
+    }
+    else{
+        return null
+    }
+    
 }
 
 

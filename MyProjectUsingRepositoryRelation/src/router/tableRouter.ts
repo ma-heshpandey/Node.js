@@ -45,8 +45,13 @@ tableroute.post("/", async (req: Request, res:Response)=>{
     try{
         const data = req.body
         const postedData = await postTable(data)
-        res.send(postedData ).status(200)
-
+        if(postedData){
+            res.send(postedData).status(200)
+        }
+        else{ 
+        res.status(404).send("Sorry,User not found ")
+        
+        }
     }
     catch(error){
         const result = "Sorry, Not found"+error
@@ -59,9 +64,6 @@ tableroute.post("/", async (req: Request, res:Response)=>{
  tableroute.put("/:id", async (req: Request, res:Response)=>{
     try{
         const id = Number(req.params.id)
-        //const date = req.body.date
-        //const book = req.body
-        // book.date = Date(date) body-parser is it?
         const postedData = await putTable(id, req.body)
         if(postedData){
             res.send(postedData).status(200)

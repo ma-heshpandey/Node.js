@@ -2,7 +2,7 @@
 
 import {Router, Request, Response} from "express"
 import { findAll, postCitizenship, findById, putCitizenship, deleteCitizenship } from "../services/citzenshipService"
-
+import { QueryFailedError } from 'typeorm';
 
 export const citizenshipRout: Router = Router()
 
@@ -50,18 +50,29 @@ citizenshipRout.post("/", async (req: Request, res:Response)=>{
     }
     catch(error){
         const result = "Sorry, Not found"+error
-        res.send(result).status(404)
+        if (error instanceof QueryFailedError) {
+            switch (error.driverError.code) { 
+              case "23502": //missing column code
+                res.status(404).send("Please provide the value of "+error.driverError.column+ " field")
+                 break;
+              case "23505": 
+                res.status(404).send("Requested User already been assigned to the citizenship ")
+                break;
+            default:
+                res.status(404).send("Something went wrong")
+            }
+
+        res.send({"message":result, "error":error}).status(404)
 
     }
+}
 })
 
 
  citizenshipRout.put("/:id", async (req: Request, res:Response)=>{
     try{
         const id = Number(req.params.id)
-        //const date = req.body.date
-        //const book = req.body
-        // book.date = Date(date) body-parser is it?
+        
         const postedData = await putCitizenship(id, req.body)
         if(postedData){
             res.send(postedData).status(200)
